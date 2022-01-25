@@ -1,18 +1,9 @@
 package Userinterface;
 
-import Bibsystem.BibliothekVerwalten;
-import Bibsystem.Login;
-import Bibsystem.NeueAusleihe;
-import Persistenzschicht.Ausleihen;
+import Bibsystem.*;
 import Persistenzschicht.Ausleihkonto;
-import Persistenzschicht.Buch;
 import Persistenzschicht.Fakultät;
 import java.util.Scanner;
-
-import static Bibsystem.AccountManagement.*;
-import static Bibsystem.BibliothekVerwalten.getAllMedia;
-import static Bibsystem.BibliothekVerwalten.startBibDatabase;
-
 
 public class Main {
 
@@ -71,11 +62,11 @@ public class Main {
 
 
         switch (fk.nextInt()) {
-            case 1 -> neuerBenutzer(benutzername,passwort, Fakultät.Informatik);
-            case 2 -> neuerBenutzer(benutzername,passwort, Fakultät.Mediendesign);
-            case 3 -> neuerBenutzer(benutzername,passwort, Fakultät.Wirtschaft);
-            case 4 -> neuerBenutzer(benutzername,passwort, Fakultät.Medizin);
-            case 5 -> neuerBenutzer(benutzername,passwort, Fakultät.Mechanik);
+            case 1 -> new AccountManagement().neuerBenutzer(benutzername,passwort, Fakultät.Informatik);
+            case 2 -> new AccountManagement().neuerBenutzer(benutzername,passwort, Fakultät.Mediendesign);
+            case 3 -> new AccountManagement().neuerBenutzer(benutzername,passwort, Fakultät.Wirtschaft);
+            case 4 -> new AccountManagement().neuerBenutzer(benutzername,passwort, Fakultät.Medizin);
+            case 5 -> new AccountManagement().neuerBenutzer(benutzername,passwort, Fakultät.Mechanik);
         }
 
 
@@ -96,7 +87,7 @@ public class Main {
         Scanner isbn = new Scanner(System.in);
         long isbnNeu = isbn.nextLong();
 
-        BibliothekVerwalten.neuesBuchEinfugen(titelNeu,autorNeu,isbnNeu);
+        new BibliothekVerwalten().neuesBuchEinfugen(titelNeu,autorNeu,isbnNeu);
 
 
 
@@ -104,7 +95,7 @@ public class Main {
 
     public static void Ausleihe() throws Exception {
         System.out.println("Bitte Suchen Sie sich ein Buch zum ausleihen aus:");
-        getAllMedia();
+        new BibliothekVerwalten().getAllMedia();
         Scanner scanner = new Scanner(System.in);
         new NeueAusleihe().auswahlBuch(loggedInUser,scanner.nextInt());
 
@@ -114,10 +105,10 @@ public class Main {
         System.out.println("Suchen Sie sich ein Medium nach der AusleihID aus, welches sie verlängern möchten:");
         System.out.println("----------------------------------------------------------------------------------------");
         System.out.println("AusleihID      BuchID     mögliche Verlängerungen       Frist          Titel ");
-        alleAusgeliehenenMedien(loggedInUser);
+        new AccountManagement().alleAusgeliehenenMedien(loggedInUser);
         Scanner scanner = new Scanner(System.in);
         int auswahl = scanner.nextInt();
-        mediumVerlaengern(loggedInUser, auswahl);
+        new AccountManagement().mediumVerlaengern(loggedInUser, auswahl);
 
 
 
@@ -127,14 +118,14 @@ public class Main {
         System.out.println("Suchen Sie sich ein Buch aus welches sie zurückgeben möchten:");
         System.out.println("----------------------------------------------------------------------------------------");
         System.out.println("AusleihID      BuchID     mögliche Verlängerungen       Frist          Titel ");
-        alleAusgeliehenenMedien(loggedInUser);
+        new AccountManagement().alleAusgeliehenenMedien(loggedInUser);
         Scanner scanner = new Scanner(System.in);
         int auswahl = scanner.nextInt();
-        mediumRuckgabe(loggedInUser, auswahl);
+        new AccountManagement().mediumRuckgabe(loggedInUser, auswahl);
     }
 
     public static void logIn() throws Exception {
-        startAccDatabase();
+        new AccountManagement().startAccDatabase();
 
 
         System.out.print("Bitte geben Sie ihr Benutzernamen ein: ");
@@ -147,7 +138,7 @@ public class Main {
         loggedInUser = new Login().tryLogin(benutzername,passowrt);
 
 
-        startBibDatabase();
+        new BibliothekVerwalten().startBibDatabase();
         boot();
     }
 

@@ -8,9 +8,10 @@ import Persistenzschicht.Buch;
 import static Persistenzschicht.BibliothekEK.getDatenbank;
 import static Userinterface.Main.boot;
 
-public class BibliothekVerwalten  {
+public class BibliothekVerwalten implements VerwaltenInterface {
 
-    public static  void neuesBuchEinfugen(String titel, String autor, long isbn) throws Exception {
+    @Override
+    public void neuesBuchEinfugen(String titel, String autor, long isbn) throws Exception {
 
         Buch neu = new Buch(titel,autor,isbn);
         BibliothekEK.addBuch(neu);
@@ -19,7 +20,8 @@ public class BibliothekVerwalten  {
 
     }
 
-    public static void getAllMedia(){
+    @Override
+    public void getAllMedia(){
         Bibliothekbestand all = getDatenbank();
 
         for (AusleihbaresMedium medium : all.returnList()) {
@@ -28,7 +30,8 @@ public class BibliothekVerwalten  {
         }
     }
 
-    public static void startBibDatabase(){
+    @Override
+    public void startBibDatabase(){
         new BibliothekEK();
     }
 

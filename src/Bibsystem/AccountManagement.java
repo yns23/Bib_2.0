@@ -1,9 +1,6 @@
 package Bibsystem;
 
-import Persistenzschicht.Ausleihen;
-import Persistenzschicht.Ausleihkonto;
-import Persistenzschicht.AusleihkontoEK;
-import Persistenzschicht.Fakultät;
+import Persistenzschicht.*;
 
 import java.util.ArrayList;
 
@@ -13,14 +10,14 @@ import static Userinterface.Main.boot;
 public class AccountManagement {
 
 
-    public static void neuerBenutzer(String benutzername, String passwort, Fakultät fakultaet) throws Exception {
+    public void neuerBenutzer(String benutzername, String passwort, Fakultät fakultaet) throws Exception {
         Ausleihkonto neu = new Ausleihkonto(benutzername, passwort,fakultaet);
         addAusleihkonto(neu);
         boot();
 
     }
 
-    public static void alleAusgeliehenenMedien(Ausleihkonto ausleihkonto){
+    public void alleAusgeliehenenMedien(Ausleihkonto ausleihkonto){
         ArrayList<Ausleihen> ausgeliehen = ausleihkonto.getAusgelieheneMedien();
 
         for (Ausleihen ausleihen : ausgeliehen) {
@@ -28,7 +25,8 @@ public class AccountManagement {
         }
     }
 
-    public static void mediumVerlaengern(Ausleihkonto user, int ausleihID) throws Exception {
+
+    public void mediumVerlaengern(Ausleihkonto user, int ausleihID) throws Exception {
         ArrayList<Ausleihen> ausgeliehen = user.getAusgelieheneMedien();
         for (Ausleihen ausleihen : ausgeliehen) {
             if (ausleihen.getAusleihID()==ausleihID){
@@ -44,7 +42,7 @@ public class AccountManagement {
         boot();
     }
 
-    public static void startAccDatabase(){
+    public void startAccDatabase(){
         new AusleihkontoEK();
 
     }

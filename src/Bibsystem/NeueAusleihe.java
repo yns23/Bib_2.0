@@ -8,16 +8,18 @@ import Persistenzschicht.Bibliothekbestand;
 import static Persistenzschicht.BibliothekEK.getDatenbank;
 import static Userinterface.Main.boot;
 
-public class NeueAusleihe {
+public class NeueAusleihe implements AusleihInterface{
 
     AusleihbaresMedium medium;
     Ausleihkonto nutzer;
 
-    public static void neuesBuchHinzufügen(Ausleihkonto a, AusleihbaresMedium m) throws Exception {
+    @Override
+    public void neuesBuchHinzufügen(Ausleihkonto a, AusleihbaresMedium m) throws Exception {
         new Ausleihen(a, m);
         boot();
     }
 
+    @Override
     public void auswahlBuch(Ausleihkonto loggedIn, int i) throws Exception {
         nutzer=loggedIn;
         Bibliothekbestand bib = getDatenbank();
