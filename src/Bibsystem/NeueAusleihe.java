@@ -13,12 +13,12 @@ public class NeueAusleihe {
     AusleihbaresMedium medium;
     Ausleihkonto nutzer;
 
-    public static void neuesBuchHinzufügen(Ausleihkonto a, AusleihbaresMedium m){
+    public static void neuesBuchHinzufügen(Ausleihkonto a, AusleihbaresMedium m) throws Exception {
         new Ausleihen(a, m);
         boot();
     }
 
-    public void auswahlBuch(Ausleihkonto loggedIn, int i){
+    public void auswahlBuch(Ausleihkonto loggedIn, int i) throws Exception {
         nutzer=loggedIn;
         Bibliothekbestand bib = getDatenbank();
         boolean check = false;

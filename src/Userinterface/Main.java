@@ -8,8 +8,8 @@ import Persistenzschicht.Ausleihkonto;
 import Persistenzschicht.Buch;
 import Persistenzschicht.Fakultät;
 import java.util.Scanner;
-import static Bibsystem.AccountManagement.neuerBenutzer;
-import static Bibsystem.AccountManagement.startAccDatabase;
+
+import static Bibsystem.AccountManagement.*;
 import static Bibsystem.BibliothekVerwalten.getAllMedia;
 import static Bibsystem.BibliothekVerwalten.startBibDatabase;
 
@@ -17,6 +17,7 @@ import static Bibsystem.BibliothekVerwalten.startBibDatabase;
 public class Main {
 
     static Ausleihkonto loggedInUser;
+
     public static void main(String[] args) throws Exception {
             logIn();
 
@@ -24,7 +25,7 @@ public class Main {
 
     }
 
-    public static void boot(){
+    public static void boot() throws Exception {
         System.out.println("\nBitte wählen Sie von volgenden Auswahlmöglichkeiten aus:");
         System.out.println("--------------------------------------------------------");
         System.out.println("1. Ausleihberechtigte Person anlegen.");
@@ -32,6 +33,7 @@ public class Main {
         System.out.println("3. Buch ausleihen.");
         System.out.println("4. Buch verlängern.");
         System.out.println("5. Buch zurückgeben.");
+        System.out.println("6. Logout.");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -42,6 +44,7 @@ public class Main {
             case 3 -> Ausleihe();
             case 4 -> Verlaengerung();
             case 5 -> Rückgabe();
+            case 6 -> logIn();
             default -> {
                 System.out.println("Keine gültige Eingabe! Aufwiedersehen!");
                 System.exit(0);
@@ -49,11 +52,11 @@ public class Main {
         }
     }
 
-    public static void anlegenAusleihberechtigten(){
+    public static void anlegenAusleihberechtigten() throws Exception {
         System.out.print("Bitte geben Sie einen neuen Benuzernamen ein:");
         Scanner bn = new Scanner(System.in);
         String benutzername = bn.nextLine();
-        System.out.print("Bitte geben Sie einen neuen Benuzernamen ein:");
+        System.out.print("Bitte geben Sie einen Passwort ein:");
         Scanner pw = new Scanner(System.in);
         String passwort = bn.nextLine();
         System.out.println("Wählen Sie eine Fakultät aus.");
@@ -80,7 +83,7 @@ public class Main {
 
     }
 
-    public static void aufnahmeBuch(){
+    public static void aufnahmeBuch() throws Exception {
         System.out.println("Bitte geben Sie die Daten des neuen Buches ein:");
         System.out.println("-----------------------------------------------");
         System.out.print("Titel: ");
@@ -99,7 +102,7 @@ public class Main {
 
     }
 
-    public static void Ausleihe(){
+    public static void Ausleihe() throws Exception {
         System.out.println("Bitte Suchen Sie sich ein Buch zum ausleihen aus:");
         getAllMedia();
         Scanner scanner = new Scanner(System.in);
@@ -107,14 +110,27 @@ public class Main {
 
     }
 
-    public static void Verlaengerung(){
-        System.out.println("Suchen Sie sich ein Buch aus welches sie verlängern möchten:");
-        System.out.println("-------------------------------------------------------");
+    public static void Verlaengerung() throws Exception {
+        System.out.println("Suchen Sie sich ein Medium nach der AusleihID aus, welches sie verlängern möchten:");
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println("AusleihID      BuchID     mögliche Verlängerungen       Frist          Titel ");
+        alleAusgeliehenenMedien(loggedInUser);
+        Scanner scanner = new Scanner(System.in);
+        int auswahl = scanner.nextInt();
+        mediumVerlaengern(loggedInUser, auswahl);
+
+
+
     }
 
-    public static void Rückgabe(){
+    public static void Rückgabe() throws Exception {
         System.out.println("Suchen Sie sich ein Buch aus welches sie zurückgeben möchten:");
-        System.out.println("-------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println("AusleihID      BuchID     mögliche Verlängerungen       Frist          Titel ");
+        alleAusgeliehenenMedien(loggedInUser);
+        Scanner scanner = new Scanner(System.in);
+        int auswahl = scanner.nextInt();
+        mediumRuckgabe(loggedInUser, auswahl);
     }
 
     public static void logIn() throws Exception {

@@ -10,7 +10,7 @@ import static Userinterface.Main.boot;
 
 public class BibliothekVerwalten  {
 
-    public static  void neuesBuchEinfugen(String titel, String autor, long isbn){
+    public static  void neuesBuchEinfugen(String titel, String autor, long isbn) throws Exception {
 
         Buch neu = new Buch(titel,autor,isbn);
         BibliothekEK.addBuch(neu);

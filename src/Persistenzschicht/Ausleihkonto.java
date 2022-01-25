@@ -147,10 +147,6 @@ public class Ausleihkonto{
 		throw new UnsupportedOperationException();
 	}
 
-	public void rückgabe() {
-		// TODO - implement Persistenzschicht.Ausleihkonto.rückgabe
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
