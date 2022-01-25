@@ -13,7 +13,6 @@ public class Buch extends AusleihbaresMedium {
 		super(titel, autor, ISBN, true, exemplare, mediumID, false);
 		this.titel = titel;
 		this.autor = autor;
-		this.exemplare = exemplare;
 		this.ISBN = ISBN;
 	}
 
@@ -44,6 +43,7 @@ public class Buch extends AusleihbaresMedium {
 	public void setExemplare(int exemplare) {
 		this.exemplare = exemplare;
 	}
+
 	public void addExemplare(){
 		this.exemplare++;
 	}

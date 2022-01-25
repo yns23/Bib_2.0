@@ -2,22 +2,35 @@ package Persistenzschicht;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import static Persistenzschicht.AusleihkontoEK.newID;
 
 public class Ausleihkonto{
 
+	private String benutzername;
+	private String passwort;
 	private long id;
 	private Fakultät fakultet;
 	private ArrayList<AusleihbaresMedium> ausgelieheneMedien;
 	private ArrayList<AusleihbaresMedium> reservierteMedien;
 	private ArrayList<Mahungen> mahnungen;
 
-	public Ausleihkonto(long id, Fakultät fakultet) {
+	public Ausleihkonto(String bn,String passwort,Fakultät fakultet) {
+		long id = generateID();
+		this.benutzername = bn;
+		this.passwort = passwort;
 		this.id = id;
 		this.fakultet = fakultet;
-		this.ausgelieheneMedien = null;
-		this.reservierteMedien = null;
-		this.mahnungen = null;
+		this.ausgelieheneMedien = new ArrayList<Ausleihen>();
+		this.reservierteMedien = new ArrayList<AusleihbaresMedium>();
+		this.mahnungen = new ArrayList<Mahungen>();
+	}
+
+	public String getPasswort() {
+		return passwort;
+	}
+	public String getBenutzername() {
+		return benutzername;
 	}
 
 	public long getId() {

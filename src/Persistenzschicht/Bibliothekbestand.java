@@ -19,9 +19,9 @@ public class Bibliothekbestand {
 
 	public Buch TitelSuche(String titel) throws Exception {
 
-		for (int i = 0; i < this.Datenbank.size(); i++) {
-			if (titel.equals(this.Datenbank.get(i).getTitel()))
-				return this.Datenbank.get(i);
+		for (Buch buch : this.Datenbank) {
+			if (titel.equals(buch.getTitel()))
+				return buch;
 
 		}
 		 throw new Exception("Persistenzschicht.Buch wurde nicht gefunden.");
@@ -30,26 +30,26 @@ public class Bibliothekbestand {
 
 
 	public Buch AutorSuche(String vorname, String nachname) {
-		for (int i = 0; i < Datenbank.size(); i++) {
-			if (vorname +" "+nachname == Datenbank.get(i).getAutor())
-				return Datenbank.get(i);
+		for (Buch buch : Datenbank) {
+			if (vorname + " " + nachname == buch.getAutor())
+				return buch;
 		}
 		throw new UnsupportedOperationException();
 	}
 
 	public Buch ISBNsuche(long ISBN) {
-		for (int i = 0; i < Datenbank.size(); i++) {
-			if (ISBN == Datenbank.get(i).getISBN())
-				return Datenbank.get(i);
+		for (Buch buch : Datenbank) {
+			if (ISBN == buch.getISBN())
+				return buch;
 		}
 		throw new UnsupportedOperationException();
 	}
 
 
-	public void BuchHinzufügen(Buch neu, long adminID) {
+	public void BuchHinzufügen(Buch neu) {
 
 		this.Datenbank.add(neu);
-		System.out.println("Das Persistenzschicht.Buch mit der ID = " + neu.getMediumID() + " wurde erfoglreich zur Bibliothek aufgenommen!");
+		System.out.println("Das Buch mit der ID [" + neu.getMediumID() + "] und dem Titel [" +neu.getTitel()+ "] wurde erfoglreich zur Bibliothek aufgenommen!");
 
 	}
 
@@ -59,5 +59,9 @@ public class Bibliothekbestand {
 
 	public boolean isEmpty() {
 		return Datenbank.isEmpty();
+	}
+
+	public ArrayList<Buch> returnList(){
+		return Datenbank;
 	}
 }

@@ -11,15 +11,13 @@ public class AusleihbaresMedium<kategorie>{
 	private boolean reserviert;
 	private  kategorie kategorie;
 
-	public AusleihbaresMedium(String titel, String autor, long ISBN, boolean verfügbarkeit, int exemplare, long mediumID, boolean reserviert) {
+	public AusleihbaresMedium(String titel, String autor, long ISBN) {
 		this.titel = titel;
 		this.autor = autor;
 		this.ISBN = ISBN;
-		this.verfügbarkeit = verfügbarkeit;
-		this.exemplare = exemplare;
-		this.mediumID = mediumID;
-		this.reserviert = reserviert;
-
+		this.verfügbarkeit = true;
+		this.mediumID = newID();
+		this.reserviert = false;
 	}
 
 	public String getTitel() {
@@ -86,9 +84,10 @@ public class AusleihbaresMedium<kategorie>{
 		this.kategorie = kategorie;
 	}
 
-	public void Ausleihen(boolean AGB, long mediumID, long nutzerID) {
-		// TODO - implement Persistenzschicht.AusleihbaresMedium.Persistenzschicht.Ausleihen
-		throw new UnsupportedOperationException();
+	public Ausleihen ausleihen(long kontoID) {
+		Ausleihen ausleihe = new Ausleihen(AusleihkontoEK.getAusleihkonto(kontoID),this);
+		this.setVerfügbarkeit(false);
+		return ausleihe.getAusleihe();
 	}
 
 	/**
